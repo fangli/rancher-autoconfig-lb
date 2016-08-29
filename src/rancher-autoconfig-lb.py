@@ -70,8 +70,8 @@ class RancherProxy(object):
         payload = []
         for service in self.services:
             try:
-                if (service['type'] == 'service') and (service['state'] not in ('deactivating', 'inactive', 'removed', 'removing')) and ('domain' in service['launchConfig']['labels']):
-                    domains = service['launchConfig']['labels']['domain'].replace(' ', '').replace(';', ',').split(',')
+                if (service['type'] == 'service') and (service['state'] not in ('deactivating', 'inactive', 'removed', 'removing')) and ('autoconfig.proxy.domain' in service['launchConfig']['labels']):
+                    domains = service['launchConfig']['labels']['autoconfig.proxy.domain'].replace(' ', '').replace(';', ',').split(',')
                     self.__check_domains(domains)
                     payload.append({'serviceId': service['id'], 'ports': domains})
             except Exception, e:
